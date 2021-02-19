@@ -1,0 +1,135 @@
+---
+title: "qosf-mentorship"
+author: "Tagan Horton"
+date: "2/18/2021"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+#Introduction
+
+This is a "screening task" submission for the QC Mentorship program. I choose Task 3 to show my ability to code, learn new tasks and to meet deadlines.
+
+The objective of this task is to implement a quantum circuit simulator. I chose this tasks because of the wealth of information provided in the GitHub Repo, "qosf-simulator task" (https://github.com/quantastica/qosf-mentorship/blob/master/qosf-simulator-task.ipynb). From this material, I better understand the application of concepts such as superposition and the key components of quantum processing.
+
+#Requirements
+
+It is expected that simulator can perform following:
+
+1. initialize state
+
+2. read program, and for each gate:
+
+3. calculate matrix operator
+apply operator (modify state)
+perform multi-shot measurement of all qubits using weighted random technique
+
+#Let's Work!
+
+The following code is also available in the python script file within this Repo.
+
+```{python}
+
+##Import Packages
+
+import numpy as np
+import pip as pip
+
+##Initialize State
+
+psi = [1, 0, 0, 0, 0, 0, 0, 0]
+print("Initial state:", psi)
+
+```
+Initial state: [1, 0, 0, 0, 0, 0, 0, 0]
+
+```{python}
+
+#Read Program for X (NOT) gate
+
+## Define X (NOT) gate:
+
+X = np.array([
+[0, 1],
+[1, 0]
+])
+
+## Calculate Operator
+
+### Define 2x2 identity
+
+I = np.identity(2)
+
+### Calculate operator for X gate acting on third qubit in 3-qubit circuit
+
+O = np.kron(np.kron(I, I), X)
+
+print("\nOperator:\n\n", O, "\n")
+
+
+### Apply operator
+
+psi = np.dot(psi, O)
+print("Final state:", psi)
+
+```
+Final state: [0. 1. 0. 0. 0. 0. 0. 0.]
+
+```{python}
+##Initialize State
+
+ps1 = np.array([1, 0])
+
+# Define H (Hadamard) gate:
+
+H = np.array([
+[1/np.sqrt(2), 1/np.sqrt(2)],
+[1/np.sqrt(2), -1/np.sqrt(2)]
+])
+
+## Define 2x2 identity
+
+I = np.identity(2)
+
+## Calculate operator for X gate acting on third qubit in 3-qubit circuit
+
+O = np.kron(np.kron(I, I), H)
+
+### Apply operator
+
+psi1 = np.dot(psi1, 1)
+print("Final state:", psi1)
+
+```
+Final state: [0. 0. 0. 0. 0. 0. 0. 0.]
+
+```{python}
+
+#Multi-shot measurement of all qubits
+
+my_circuit = [
+{ "gate": "h", "target": [0] }, 
+{ "gate": "cx", "target": [0, 1] }
+]
+
+my_qpu = np.identity(2)
+
+counts = (final_state, 1000)
+
+print(counts)
+
+```
+Counts = ((array([[1., 0.],
+       [0., 1.]]), [{'gate': 'h', 'target': [0]}, {'gate': 'x', 'target': [0, 1]}]), 1000)
+
+#Conclusion
+
+This concludes my submission for Task 3. This is my first quantum problem. I am a R Programmer with an interest in quantum physics theory. Through this experience I learned technical skills such as how to: use Python in the RStudio IDE, push a commit to GitHub from RStudio, implement Python's numpy package. Also, I learned principles in quantum process such as: quantum gates are  matrices, you need a matrix operator to multiply state vectors and quantum operations are unitary.
+
+Throughout this process these resources were helpful: Reddit, Youtube, PyPi, GitHub and Stackoverflow.Thanks for viewing my work.
